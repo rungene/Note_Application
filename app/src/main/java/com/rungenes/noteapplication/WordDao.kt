@@ -1,5 +1,6 @@
 package com.rungenes.noteapplication
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,7 +10,7 @@ import androidx.room.Query
 interface WordDao {
 
     @Query("SELECT * from word_table ORDER BY word ASC")// Returns a list of words sorted in ascending order.
-    fun getAllWords(): List<Word>//A method to get all the words and have it return a List of Words
+    fun getAllWords(): LiveData<List<Word>>//A method to get all the words and have it return a List of Words wrapped in a live data
 
     @Insert(onConflict = OnConflictStrategy.IGNORE) //The conflict strategy ignores a new word if it's exactly the same as one already in the list
     suspend fun insert(word: Word)
